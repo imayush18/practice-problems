@@ -105,32 +105,38 @@ class Solution{
     public:
     //Function to check whether a binary tree is balanced or not.
     
-    int height(Node* root){
-        if(root==NULL)
-            return 0;
-            
-        int lh=height(root->left);
-        int rh=height(root->right);
+    class HBPair{
+        public:
+            int height;
+            bool balance;
+    };
+
+    
+    HBPair helper(Node *root){
+        HBPair p;
+    
+        if(root==NULL){
+            p.height=0;
+            p.balance=true;
+            return p;
+        }
         
-        return max(lh, rh) + 1;
+        HBPair left=helper(root->left);
+        HBPair right=helper(root->right);
+        
+        p.height=max(left.height, right.height)+1;
+        if(abs(left.height-right.height)<=1 and left.balance and right.balance)
+            p.balance=true;
+        else
+            p.balance=false;
+            
+        return p;
     }
     
     bool isBalanced(Node *root)
     {
-        if(root==NULL)
+        if(helper(root).balance)
             return true;
-            
-        int lh=height(root->left);
-        int rh=height(root->right);
-        
-        if(abs(lh-rh)<=1 and isBalanced(root->left) and isBalanced(root->right))
-            return true;
-        
-        // if(root->left)
-        //     isBalanced(root->left);
-        // if(root->right)
-        //     isBalanced(root->right);
-        
         return false;
     }
 };
