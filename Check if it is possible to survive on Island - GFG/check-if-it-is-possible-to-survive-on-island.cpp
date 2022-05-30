@@ -9,16 +9,15 @@ using namespace std;
 
 class Solution{
 public:
-    int minimumDays(int s, int n, int m){
-        if (((n * 6) < (m * 7) && s > 6) || m > n)
-            return -1;
-
-        else{
-            int days = (m * s) / n;
-            if (((m * s) % n) != 0)
-                days++;
-            return days;
-        }
+    int minimumDays(int S, int N, int M){
+        int hol = S/7;
+       float x = (float)N/(float)M;
+       if(x<=1)
+           return -1;
+       int buy = ceil(S/x);
+       if(S-hol<buy)
+           return -1;
+       return buy;
    
     }
 };
