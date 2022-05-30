@@ -10,15 +10,10 @@ using namespace std;
 class Solution{
 public:
     int minimumDays(int S, int N, int M){
-        int hol = S/7;
-       float x = (float)N/(float)M;
-       if(x<=1)
-           return -1;
-       int buy = ceil(S/x);
-       if(S-hol<buy)
-           return -1;
-       return buy;
-   
+        if(N*6>=M*7 or (S<7 and N>=M)){
+            return ceil(S/(((double)N/M)));
+        }
+        else return -1;
     }
 };
 
