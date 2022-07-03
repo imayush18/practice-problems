@@ -44,10 +44,6 @@ public:
             }
         }
         
-        for(int z=0; z<ans[0].size(); z++){
-            sort(ans[z].begin(), ans[z].end());
-        }
-        // sort(ans)
         return ans;
     }
 };
