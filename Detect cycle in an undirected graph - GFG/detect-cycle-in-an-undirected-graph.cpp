@@ -6,32 +6,21 @@ using namespace std;
 class Solution {
   public:
     
-    bool helper(vector<bool> &vis, vector<int> adj[], int i){
+    bool helper(vector<bool> &vis, vector<int> adj[], int i, int parent){
         
-        unordered_map<int, int> parent;
-        stack<int> s;
-        s.push(i);
-        
-        parent[i]=-1;
         vis[i]=true;
         
-        while(!s.empty()){
-            int node=s.top();
-            s.pop();
-            
-            for(auto x: adj[node]){
-                if(vis[x]){
-                    if(x!=parent[node])
-                        return true;
-                }
-                else{
-                    vis[x]=true;
-                    parent[x]=node;
-                    s.push(x);
-                }
+        for(auto x: adj[i]){
+            if(!vis[x]){
+                bool temp=helper(vis, adj, x, i);
+                if(temp)
+                    return true;
+            }
+            else if(parent!=x){
+                return true;
             }
         }
-        return  false;
+        return false;
     }
     
     bool isCycle(int V, vector<int> adj[]) {
@@ -39,7 +28,7 @@ class Solution {
         
         for(int i=0; i<V; i++){
             if(!vis[i])
-                if(helper(vis, adj, i))
+                if(helper(vis, adj, i, -1))
                     return true;
         }
         return false;
