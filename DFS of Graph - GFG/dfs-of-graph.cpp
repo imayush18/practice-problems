@@ -5,50 +5,33 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  
-    void helper(int node, vector<int> adj[], vector<int> &ans, vector<bool> &vis){
-        
-        if(vis[node])
-            return;
-            
-        vis[node]=true;
-        ans.push_back(node);
-        
-        for(auto x: adj[node])
-            helper(x, adj, ans, vis);
-    }
-  
+    // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
-        
-        // vector<int> ans;
-        
-        // int vis[V];
-        // for(int i=0; i<V; i++){
-        //     vis[i]=0;
-        // }
-        // vis[0]=1;
-        // stack<int> s;
-        // s.push(0);
-        
-        // while(!s.empty()){
-        //     int node=s.top();
-        //     s.pop();
-        //     ans.push_back(node);
-            
-        //     for(int it=adj[node].size()-1; it>=0; it--){
-        //         if(vis[it]==0)
-        //             s.push(it);
-        //         vis[it]=1;
-        //     }
-        // }
-        // return ans;
-        
-        vector<int> ans;
-        vector<bool> vis(V, false);
-        
-        helper(0, adj, ans, vis);
-        
-        return ans;
+         vector<int>vis(V,0);
+       vector<int>ans;
+       stack<int>s;
+       s.push(0);
+       
+       
+       while(!s.empty())
+       {
+           int node=s.top();
+           // vis[node]=1;
+           
+           s.pop();
+           if(!vis[node])
+           {
+               ans.push_back(node);
+               vis[node]=1;
+           }
+           for(int i = adj[node].size()-1;i>=0;i--){
+               if(!vis[adj[node][i]])
+               s.push(adj[node][i]);
+           }
+           
+       }
+       return ans;
+
     }
 };
 
