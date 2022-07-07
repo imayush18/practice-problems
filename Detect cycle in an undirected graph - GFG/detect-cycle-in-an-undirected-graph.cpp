@@ -5,46 +5,43 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  
+    
     bool helper(vector<bool> &vis, vector<int> adj[], int i){
         
         unordered_map<int, int> parent;
+        stack<int> s;
+        s.push(i);
         
         parent[i]=-1;
         vis[i]=true;
-        queue<int> q;
-        q.push(i);
         
-        while(!q.empty()){
-            int node=q.front();
-            q.pop();
+        while(!s.empty()){
+            int node=s.top();
+            s.pop();
             
             for(auto x: adj[node]){
                 if(vis[x]){
-                    if(parent[node]!=x)
+                    if(x!=parent[node])
                         return true;
                 }
                 else{
                     vis[x]=true;
                     parent[x]=node;
-                    q.push(x);
+                    s.push(x);
                 }
             }
-            
         }
-        return false;
+        return  false;
     }
-  
+    
     bool isCycle(int V, vector<int> adj[]) {
-        
         vector<bool> vis(V, false);
+        
         for(int i=0; i<V; i++){
-            if(!vis[i]){
+            if(!vis[i])
                 if(helper(vis, adj, i))
                     return true;
-            }
         }
-        
         return false;
     }
 };
