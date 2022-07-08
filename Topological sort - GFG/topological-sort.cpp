@@ -6,35 +6,35 @@ using namespace std;
 class Solution
 {
 	public:
-	
-	void helper(int i, vector<int> &ans, vector<bool> &vis, vector<int> adj[]){
-	    
-	    vis[i]=true;
-	    for(auto x: adj[i]){
-	        if(!vis[x]){
-	            helper(x, ans, vis, adj);
-	        }
-	    }
-	    ans.push_back(i);
-	}
-	
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    stack<int> s;
-	    vector<int> ans;
-	    
-	    vector<bool> vis(V, false);
+	    vector<int> indegree(V, 0);
 	    for(int i=0; i<V; i++){
-	        if(!vis[i])
-	            helper(i, ans, vis, adj);
+	        for(auto x: adj[i]){
+	            indegree[x]++;
+	        }
 	    }
 	    
-	   // while(!s.empty()){
-	   //     ans.push_back(s.top());
-	   //     s.pop();
-	   // }
-	    reverse(ans.begin(), ans.end());
+	    queue<int> q;
+	    for(int i=0; i<V; i++){
+	        if(indegree[i]==0)
+	            q.push(i);
+	    }
+	    
+	    vector<int> ans;
+	    while(!q.empty()){
+	        int node=q.front();
+	        q.pop();
+	        ans.push_back(node);
+	        
+	        for(auto x: adj[node]){
+	            indegree[x]--;
+	            if(indegree[x]==0)
+	                q.push(x);
+	        }
+	    }
+	    
 	    return ans;
 	}
 };
