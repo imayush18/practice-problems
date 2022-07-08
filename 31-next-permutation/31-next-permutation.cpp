@@ -1,21 +1,29 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int jiskoswap, jiskesathswap, n = nums.size();
-        for(jiskoswap = n-2; jiskoswap >= 0; jiskoswap--){
-            if(nums[jiskoswap] < nums[jiskoswap+1]) break;
+        
+        int i, j;
+        int n=nums.size();
+        
+        for(i=n-2; i>=0; i--){
+            if(nums[i+1]>nums[i])
+                break;
         }
         
-        if(jiskoswap<0)
+        if(i==-1){
             reverse(nums.begin(), nums.end());
-        else{
-        for(jiskesathswap = n-1; jiskesathswap > jiskoswap; jiskesathswap--){
-            if(nums[jiskesathswap] > nums[jiskoswap]) break;
+            return;
         }
         
-        swap(nums[jiskoswap], nums[jiskesathswap]);
-        reverse(nums.begin() + jiskoswap + 1, nums.end());
+        for(j=n-1; j>=0; j--){
+            if(nums[j]>nums[i])
+                break;
         }
+        
+        // cout << i << " " << j << endl;
+        
+        swap(nums[i], nums[j]);
+        reverse(nums.begin()+i+1, nums.end());
+        
     }
-    
 };
