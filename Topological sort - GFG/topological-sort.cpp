@@ -7,15 +7,15 @@ class Solution
 {
 	public:
 	
-	void helper(int i, stack<int> &s, vector<bool> &vis, vector<int> adj[]){
+	void helper(int i, vector<int> &ans, vector<bool> &vis, vector<int> adj[]){
 	    
 	    vis[i]=true;
 	    for(auto x: adj[i]){
 	        if(!vis[x]){
-	            helper(x, s, vis, adj);
+	            helper(x, ans, vis, adj);
 	        }
 	    }
-	    s.push(i);
+	    ans.push_back(i);
 	}
 	
 	//Function to return list containing vertices in Topological order. 
@@ -27,14 +27,14 @@ class Solution
 	    vector<bool> vis(V, false);
 	    for(int i=0; i<V; i++){
 	        if(!vis[i])
-	            helper(i, s, vis, adj);
+	            helper(i, ans, vis, adj);
 	    }
 	    
-	    while(!s.empty()){
-	        ans.push_back(s.top());
-	        s.pop();
-	    }
-	    
+	   // while(!s.empty()){
+	   //     ans.push_back(s.top());
+	   //     s.pop();
+	   // }
+	    reverse(ans.begin(), ans.end());
 	    return ans;
 	}
 };
