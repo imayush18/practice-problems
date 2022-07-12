@@ -22,16 +22,16 @@ class Solution
 	    s.push(node);
 	}
 	
-	void dfs1(int node, vector<int> adj[], stack<int> &s, vector<bool> &vis){
+// 	void dfs1(int node, vector<int> adj[], stack<int> &s, vector<bool> &vis){
 	    
-	    vis[node]=true;
+// 	    vis[node]=true;
 	    
-	    for(auto x: adj[node]){
-	        if(!vis[x]){
-	            dfs(x, adj, s, vis);   
-	        }
-	    }
-	}
+// 	    for(auto x: adj[node]){
+// 	        if(!vis[x]){
+// 	            dfs(x, adj, s, vis);   
+// 	        }
+// 	    }
+// 	}
 	
 	//Function to find number of strongly connected components in the graph.
     int kosaraju(int V, vector<int> adj[])
@@ -63,7 +63,7 @@ class Solution
             s.pop();
             
             if(!vis[top]){
-                dfs1(top, revadj, s, vis);
+                dfs(top, revadj, s, vis);
                 ans++;
             }
         }
