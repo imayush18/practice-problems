@@ -7,7 +7,7 @@ class Solution {
 public:
 	int isNegativeWeightCycle(int n, vector<vector<int>>edges){
 	    
-	    vector<int> dist(n, INT_MAX);
+	    vector<int> dist(n, 100000);
 	    dist[0]=0; // treating 0 as the source
 	    
 	    int x=edges.size();
@@ -15,8 +15,8 @@ public:
 	    for(int i=0; i<n-1; i++){
 	        for(auto j: edges){
 	            int prev=dist[j[1]];
-	            if(dist[j[0]]==INT_MAX)
-	                continue;
+	           // if(dist[j[0]]==INT_MAX)
+	           //     continue;
 	            int cur=dist[j[0]] + j[2];
 	            
 	            if(cur<prev){
