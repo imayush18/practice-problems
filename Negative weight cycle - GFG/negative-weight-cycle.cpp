@@ -11,7 +11,7 @@ public:
 	    dist[0]=0; // treating 0 as the source
 	    
 	    
-	    for(int i=0; i<n-1; i++){
+	    for(int i=0; i<n; i++){
 	        for(auto j: edges){
 	            int prev=dist[j[1]];
 	            int cur=dist[j[0]] + j[2];
