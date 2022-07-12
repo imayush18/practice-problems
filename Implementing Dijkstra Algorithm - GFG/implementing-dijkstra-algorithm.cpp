@@ -17,6 +17,7 @@ class Solution
         set<pair<int, int>> s;
         
         s.insert({0, S});
+        vector<bool> vis(V, false);
         
         while(!s.empty()){
             auto x= *(s.begin());
@@ -24,6 +25,7 @@ class Solution
             
             int wt=x.first;
             int node=x.second;
+            vis[node]=true;
             
             for(auto temp: adj[node]){
                 int prev=dist[temp[0]];
@@ -32,7 +34,8 @@ class Solution
                 if(cur<prev){
                     s.erase({prev, temp[0]});
                     dist[temp[0]]=cur;
-                    s.insert({cur, temp[0]});
+                    if(!vis[temp[0]])
+                        s.insert({cur, temp[0]});
                 }
             }
         }
