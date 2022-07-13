@@ -38,7 +38,7 @@ public:
         
         for(int i=0; i<n; i++){
             if(res[i]==-1){
-                res[i]=1;
+                res[i]=0;
                 if(!dfs(graph, res, i))
                     return false;
             }
