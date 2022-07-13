@@ -22,22 +22,26 @@ public:
 class Solution {
 public:
     
-    Node* dfs(Node* cur, unordered_map<Node*, Node*> &mp){
+    Node* bfs(Node* node, unordered_map<Node*, Node*> &mp){
         
-        vector<Node*> nbr;
-        Node* clone=new Node(cur->val);
-        mp[cur]=clone;
+        Node* clone=new Node(node->val);
+        mp[node]=clone;
+        queue<Node*> q;
+        q.push(node);
         
-        for(auto it: cur->neighbors){
-            if(mp.find(it)!=mp.end()){
-                nbr.push_back(mp[it]);
-            }
-            else{
-                nbr.push_back(dfs(it, mp));
-            }
+        while(!q.empty()){
+            Node* cur=q.front();
+            q.pop();
+            for(auto it: cur->neighbors){
+                if(mp.find(it)==mp.end()){
+                    mp[it]=new Node(it->val);
+                    q.push(it);
+                }
+                
+                mp[cur]->neighbors.push_back(mp[it]);
+            }   
         }
-        
-        clone->neighbors=nbr;
+
         return clone;
     }
     
@@ -48,6 +52,6 @@ public:
         
         unordered_map<Node*, Node*> mp;
         
-        return dfs(node, mp);
+        return bfs(node, mp);
     }
 };
