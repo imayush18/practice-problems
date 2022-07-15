@@ -115,10 +115,11 @@ class Solution{
         
         while(!q.empty()){
             Node* temp=q.front();
+            q.pop();
             
             if(temp==NULL){
                 
-                q.pop();
+                // q.pop();
                 if(!q.empty()){
                     q.push(NULL);
                 }
@@ -141,7 +142,7 @@ class Solution{
                 else
                     s.push(temp->data);
                     
-                q.pop();
+                // q.pop();
                 
                 if(temp->left)
                     q.push(temp->left);
