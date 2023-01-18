@@ -5,33 +5,30 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
+  
+    void helper(int node, int vis[], vector<int> adj[], vector<int> &ans){
+        
+        if(vis[node])
+            return;
+            
+        vis[node]=1;
+        ans.push_back(node);
+        
+        for(auto i: adj[node])
+            helper(i, vis, adj, ans);
+        
+    }
+  
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
-         vector<int>vis(V,0);
-       vector<int>ans;
-       stack<int>s;
-       s.push(0);
-       
-       
-       while(!s.empty())
-       {
-           int node=s.top();
-           // vis[node]=1;
-           
-           s.pop();
-           if(!vis[node])
-           {
-               ans.push_back(node);
-               vis[node]=1;
-           }
-           for(int i = adj[node].size()-1;i>=0;i--){
-               if(!vis[adj[node][i]])
-               s.push(adj[node][i]);
-           }
-           
-       }
-       return ans;
-
+        
+        int vis[V]={0};
+        vector<int> ans;
+        
+        helper(0, vis, adj, ans);
+        
+        return ans;
+        
     }
 };
 
